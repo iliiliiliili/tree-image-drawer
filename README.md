@@ -1,5 +1,7 @@
 # Tree image drawer
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/62f45147e98f44da877f100784172ed1)](https://app.codacy.com/app/iliiliiliili/tree-image-drawer?utm_source=github.com&utm_medium=referral&utm_content=iliiliiliili/tree-image-drawer&utm_campaign=Badge_Grade_Dashboard)
+
 Node.js tree to png drawer
 
 ![example](media/test.png)
