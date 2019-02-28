@@ -2,6 +2,10 @@
 
 Node.js tree to png drawer
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/fb7e1f25982a434eba263ea7cb27d8b1)](https://www.codacy.com/app/iliiliiliili/tree-image-drawer?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=iliiliiliili/tree-image-drawer&amp;utm_campaign=Badge_Grade)
+[![npm version](https://badge.fury.io/js/tree-image-drawer.svg)](https://badge.fury.io/js/tree-image-drawer)
+
+
 ![example](media/test.png)
 
 ## Usage
@@ -29,4 +33,4 @@ drawTree ([aaaa], './media/test.png');
 
 ## Methods
 
-   - ```async drawTree (roots, savePath, options = defaultOptions)```
+- ```async drawTree (roots, savePath, options = defaultOptions)```
