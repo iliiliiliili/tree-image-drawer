@@ -1,0 +1,28 @@
+{
+  "name": "tree-image-drawer",
+  "version": "1.0.0",
+  "description": "Node.js tree drawer",
+  "main": "index.js",
+  "keywords": [
+    "tree",
+    "binary tree",
+    "drawer",
+    "image"
+  ],
+  "author": "Illia Oleksiienko <iliiliilya123@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iliiliiliili/tree-image-drawer.git"
+  },
+  "scripts": {
+    "test": "node test.js"
+  },
+  "bugs": {
+    "url": "https://github.com/iliiliiliili/tree-image-drawer/issues"
+  },
+  "homepage": "https://github.com/iliiliiliili/tree-image-drawer#readme",
+  "dependencies": {
+    "canvas": "^2.3.1"
+  }
+}
