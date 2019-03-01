@@ -50,3 +50,6 @@ drawAsTree ([aaaa2]
     , (node) => node.outside
     , () => (Math.random () > 0.5 ? 'a' : 'bb')
     , './media/test2.png');
+
+
+drawTree ([a, b, c, d, e], './media/test3.png');

@@ -96,8 +96,7 @@ const getPositions = (root, getChildren, options) => {
 
     setNodePosition (root, options.offset.y);
 
-    bounds.x += options.offset.x;
-    bounds.y += options.offset.y;
+    xOffset += options.delta.width + options.block.width;
 };
 
 /**
@@ -171,6 +170,9 @@ const drawAsTree = (roots, getChildren, getDisplay, savePath, options = defaultO
 
     roots.forEach ((root) => getPositions (root, getChildren, options));
 
+    bounds.x += options.offset.x;
+    bounds.y += options.offset.y;
+
     const canvas = createCanvas (bounds.x, bounds.y);
     const context = canvas.getContext ('2d');
 
@@ -188,7 +190,6 @@ const drawAsTree = (roots, getChildren, getDisplay, savePath, options = defaultO
 const drawTree = (roots, savePath, options = defaultOptions) =>
     drawAsTree (roots, (node) => node.children
         , (node) => node.display, savePath, options);
-
 
 module.exports = {
 
