@@ -1,5 +1,5 @@
 
-const {drawTree} = require ('./index');
+const {drawTree, drawAsTree} = require ('./index');
 
 const a = {children: [], display: 'a'};
 const b = {children: [], display: 'b'};
@@ -31,3 +31,22 @@ const cc1 = {children: [a1, d1, e1], display: 'cc1'};
 const aaaa1 = {children: [aa1, bb1, cc1], display: 'aaaa1'};
 
 drawTree ([aaaa, aaaa1], './media/test1.png');
+
+const a2 = {outside: []};
+const b2 = {outside: []};
+const c2 = {outside: []};
+
+const d2 = {outside: []};
+const e2Children = {outside: []};
+const e2 = {outside: [e2Children]};
+
+const aa2 = {outside: [a2, b2, c2]};
+const bb2 = {outside: [a2, d2]};
+const cc2 = {outside: [a2, d2, e2]};
+
+const aaaa2 = {outside: [aa2, bb2, cc2]};
+
+drawAsTree ([aaaa2]
+    , (node) => node.outside
+    , () => (Math.random () > 0.5 ? 'a' : 'bb')
+    , './media/test2.png');

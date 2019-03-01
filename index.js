@@ -45,13 +45,15 @@ const bounds = {x: 0, y: 0};
 let xOffset;
 
 /**
- * @param {TreeNode} root
+ * @template T
+ * @param {T} root
+ * @param {function (T): Array<T>} getChildren
  * @param {Options} options
  */
-const getPositions = (root, options) => {
+const getPositions = (root, getChildren, options) => {
 
     /**
-     * @param {TreeNode} node
+     * @param {T} node
      * @param {number} y
      * @returns {boolean} true if position was computed if first time
      */
@@ -67,7 +69,7 @@ const getPositions = (root, options) => {
         const lastXOffset = xOffset;
         let computedChildren = 0;
 
-        node.children.forEach (child => {
+        getChildren (node).forEach (child => {
 
             const isComputed = setNodePosition (child, y + options.delta.height + options.block.height);
 
@@ -93,22 +95,26 @@ const getPositions = (root, options) => {
     };
 
     setNodePosition (root, options.offset.y);
+
     bounds.x += options.offset.x;
     bounds.y += options.offset.y;
 };
 
 /**
- * @param {TreeNode} root
+ * @template T
+ * @param {T} root
+ * @param {function (T): Array<T>} getChildren
+ * @param {function (T): string} getDisplay
  * @param {Context2d} context
  * @param {Options} options
  */
-const drawNodes = (root, context, options) => {
+const drawNodes = (root, getChildren, getDisplay, context, options) => {
 
-    /** @type {TreeNode} */
+    /** @type {Array<T>} */
     const drawn = [];
 
     /**
-     * @param {TreeNode} node
+     * @param {T} node
      */
     const drawNode = (node) => {
 
@@ -123,13 +129,13 @@ const drawNodes = (root, context, options) => {
         
         context.font = options.font;
         context.textAlign = 'center';
-        context.fillText (node.display, position.x + options.block.width / 2
+        context.fillText (getDisplay (node), position.x + options.block.width / 2
             , position.y + options.block.height * 3 / 4);
             
         context.strokeStyle = options.colors.block;
         context.strokeRect (position.x, position.y, options.block.width, options.block.height);
 
-        node.children.forEach (child => {
+        getChildren (node).forEach (child => {
 
             const {position: childPosition} = positions.find (val => val.node === child);
 
@@ -148,29 +154,44 @@ const drawNodes = (root, context, options) => {
 };
 
 /**
- * @param {Array <TreeNode>} root
+ * @template T
+ * @param {Array<T>} roots
+ * @param {function (T): Array<T>} getChildren
+ * @param {function (T): string} getDisplay
  * @param {string} savePath
  * @param {Options} options
- * @returns {Promise} on file saved
+ * @returns {Promise}
  */
-const drawTree = (roots, savePath, options = defaultOptions) => {
+const drawAsTree = (roots, getChildren, getDisplay, savePath, options = defaultOptions) => {
 
     positions = [];
     bounds.x = 0;
     bounds.y = 0;
     xOffset = options.offset.x;
-    
-    roots.forEach ((root) => getPositions (root, options));
+
+    roots.forEach ((root) => getPositions (root, getChildren, options));
 
     const canvas = createCanvas (bounds.x, bounds.y);
     const context = canvas.getContext ('2d');
 
-    roots.forEach ((root) => drawNodes (root, context, options));
+    roots.forEach ((root) => drawNodes (root, getChildren, getDisplay, context, options));
 
     return saveCanvas (canvas, savePath);
 };
 
+/**
+ * @param {Array <TreeNode>} roots
+ * @param {string} savePath
+ * @param {Options} options
+ * @returns {Promise} on file saved
+ */
+const drawTree = (roots, savePath, options = defaultOptions) =>
+    drawAsTree (roots, (node) => node.children
+        , (node) => node.display, savePath, options);
+
+
 module.exports = {
 
     drawTree,
+    drawAsTree,
 };
