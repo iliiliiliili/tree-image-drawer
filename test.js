@@ -53,3 +53,17 @@ drawAsTree ([aaaa2]
 
 
 drawTree ([a, b, c, d, e], './media/test3.png');
+
+const x1 = {};
+const x2 = {};
+const x3 = {1: [x1, x2]};
+const x4 = {};
+const x = {'0': [x3, x4]};
+const y = {'0': [x]};
+const z = {1: [x]};
+const w = {1: [z]};
+
+drawAsTree ([y, w]
+    , (node) => node ['0'] || node [1] || []
+    , () => 'a'
+    , './media/test4.png');

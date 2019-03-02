@@ -59,7 +59,20 @@ const getPositions = (root, getChildren, options) => {
      */
     const setNodePosition = (node, y) => {
         
-        if (positions.find (val => val.node === node) !== undefined) {
+        const savedPosition = positions.find (val => val.node === node);
+
+        if (savedPosition !== undefined) {
+
+            if (y > savedPosition.position.y) {
+
+                savedPosition.position.y = y;
+                bounds.y = Math.max (bounds.y, y + options.block.height);
+
+                getChildren (node).forEach (child =>
+                    setNodePosition (child, y + options.delta.height + options.block.height));
+                
+                return true;
+            }
 
             return false;
         }
@@ -110,19 +123,19 @@ const getPositions = (root, getChildren, options) => {
 const drawNodes = (root, getChildren, getDisplay, context, options) => {
 
     /** @type {Array<T>} */
-    const drawn = [];
+    const drawed = [];
 
     /**
      * @param {T} node
      */
     const drawNode = (node) => {
 
-        if (drawn.includes (node)) {
+        if (drawed.includes (node)) {
 
             return;
         }
 
-        drawn.push (node);
+        drawed.push (node);
 
         const {position} = positions.find (val => val.node === node);
         
