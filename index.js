@@ -21,7 +21,7 @@ const saveCanvas = (canvas, fileName) => new Promise (resolve => {
  *      delta: {width: number, height: number},
  *      offset: {x: number, y: number},
  *      displayType: 'text' | 'image',
- *      colors: {block: string, line: string},
+ *      colors: {block: string, line: string, font: string, background: string},
  *      font: string}} Options
  */
 
@@ -35,6 +35,8 @@ const defaultOptions = {
     colors: {
         block: 'rgba(0, 0, 0, 255)',
         line: 'rgba(0, 0, 0, 255)',
+        font: 'rgba(0, 0, 0, 255)',
+        background: 'rgba(0, 0, 0, 0)'
     },
     font: '30px Impact',
 };
@@ -141,6 +143,7 @@ const drawNodes = (root, getChildren, getDisplay, context, options) => {
         
         context.font = options.font;
         context.textAlign = 'center';
+        context.fillStyle = options.colors.font;
         context.fillText (getDisplay (node), position.x + options.block.width / 2
             , position.y + options.block.height * 3 / 4);
             
@@ -188,6 +191,9 @@ const drawAsTree = (roots, getChildren, getDisplay, savePath, options = defaultO
 
     const canvas = createCanvas (bounds.x, bounds.y);
     const context = canvas.getContext ('2d');
+
+    context.fillStyle = options.colors.background;
+    context.fillRect(0, 0, canvas.width, canvas.height);
 
     roots.forEach ((root) => drawNodes (root, getChildren, getDisplay, context, options));
 
