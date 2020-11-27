@@ -62,3 +62,20 @@ drawAsTree ([aaaa2]
 - ```async drawTree (roots, savePath, options = defaultOptions)```
 
 - ```async drawAsTree (root, getChildren, getDisplay, context, options = defaultOptions)```
+
+```js
+const defaultOptions = {
+
+    block: {width: 140, height: 40},
+    delta: {width: 100, height: 80},
+    offset: {x: 20, y: 40},
+    displayType: 'text',
+    colors: {
+        block: 'rgba(0, 0, 0, 255)',
+        line: 'rgba(0, 0, 0, 255)',
+        font: 'rgba(0, 0, 0, 255)',
+        background: 'rgba(0, 0, 0, 0)'
+    },
+    font: '30px Impact',
+};
+```
