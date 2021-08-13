@@ -38,6 +38,12 @@ const defaultOptions = {
         font: 'rgba(0, 0, 0, 255)',
         background: 'rgba(0, 0, 0, 0)'
     },
+    arrow: {
+        bottom: false,
+        top: false,
+        open: 3,
+        size: 10
+    },
     font: '30px Impact',
 };
 
@@ -114,6 +120,51 @@ const getPositions = (root, getChildren, options) => {
     xOffset += options.delta.width + options.block.width;
 };
 
+
+
+/**
+ *
+ * @param {line x0} x0
+ * @param {line y0} y0
+ * @param {line x1} x1
+ * @param {line y1} y1
+ * @param {how open the arrow is} arrowOpen
+ * @param {how big thr arrow's lines are} arrowLength
+ * @param {arrow at the start of the line} arrowStart
+ * @param {arrow at the end of the line} arrowEnd
+ * @param {the line color} lineColor
+ */
+function drawLineWithArrows(context, x0, y0, x1, y1, arrowOpen, arrowLength, arrowStart, arrowEnd, lineColor) {
+    const dx = x1 - x0;
+    const dy = y1 - y0;
+    const angle = Math.atan2(dy, dx);
+    const length = Math.sqrt(dx * dx + dy * dy);
+
+    
+    // Line
+    context.strokeStyle = lineColor;
+    context.translate(x0, y0);
+    context.rotate(angle);
+    context.beginPath();
+    context.moveTo(0, 0);
+    context.lineTo(length, 0);
+
+    // Arrows
+    if (arrowEnd) {
+      context.moveTo(arrowLength, -arrowOpen);
+      context.lineTo(0, 0);
+      context.lineTo(arrowLength, arrowOpen);
+    }
+    if (arrowStart) {
+      context.moveTo(length - arrowLength, -arrowOpen);
+      context.lineTo(length, 0);
+      context.lineTo(length - arrowLength, arrowOpen);
+    }
+
+    context.stroke();
+    context.setTransform(1, 0, 0, 1, 0, 0);
+}
+
 /**
  * @template T
  * @param {T} root
@@ -154,11 +205,7 @@ const drawNodes = (root, getChildren, getDisplay, context, options) => {
 
             const {position: childPosition} = positions.find (val => val.node === child);
 
-            context.strokeStyle = options.colors.line;
-            context.beginPath ();
-            context.moveTo (position.x + options.block.width / 2, position.y + options.block.height);
-            context.lineTo (childPosition.x + options.block.width / 2, childPosition.y);
-            context.stroke ();
+            drawLineWithArrows(context, position.x + options.block.width / 2, position.y + options.block.height, childPosition.x + options.block.width / 2, childPosition.y, options.arrow && options.arrow.open, options.arrow && options.arrow.size, options.arrow && options.arrow.bottom, options.arrow && options.arrow.top, options.colors.line);
 
             drawNode (child);
         });

@@ -67,3 +67,97 @@ drawAsTree ([y, w]
     , (node) => node ['0'] || node [1] || []
     , () => 'a'
     , './media/test4.png');
+
+    drawAsTree ([y, w]
+        , (node) => node ['0'] || node [1] || []
+        , () => 'a'
+        , './media/test-arrow-both.png',
+        {
+    
+            block: {width: 140, height: 40},
+            delta: {width: 100, height: 80},
+            offset: {x: 20, y: 40},
+            displayType: 'text',
+            colors: {
+                block: 'rgba(0, 0, 0, 255)',
+                line: 'rgba(0, 0, 0, 255)',
+                font: 'rgba(0, 0, 0, 255)',
+                background: 'rgba(0, 0, 0, 0)'
+            },
+            arrow: {
+                bottom: true,
+                top: true,
+                open: 3,
+                size: 10
+            },
+            font: '30px Impact',
+        });
+
+drawAsTree ([y, w]
+    , (node) => node ['0'] || node [1] || []
+    , () => 'a'
+    , './media/test-arrow-bottom.png',
+    {
+
+        block: {width: 140, height: 40},
+        delta: {width: 100, height: 80},
+        offset: {x: 20, y: 40},
+        displayType: 'text',
+        colors: {
+            block: 'rgba(0, 0, 0, 255)',
+            line: 'rgba(0, 0, 0, 255)',
+            font: 'rgba(0, 0, 0, 255)',
+            background: 'rgba(0, 0, 0, 0)'
+        },
+        arrow: {
+            bottom: true,
+            top: false,
+            open: 3,
+            size: 10
+        },
+        font: '30px Impact',
+    });
+
+    drawAsTree ([y, w]
+    , (node) => node ['0'] || node [1] || []
+    , () => 'a'
+    , './media/test-arrow-top.png',
+    {
+    
+        block: {width: 140, height: 40},
+        delta: {width: 100, height: 80},
+        offset: {x: 20, y: 40},
+        displayType: 'text',
+        colors: {
+            block: 'rgba(0, 0, 0, 255)',
+            line: 'rgba(0, 0, 0, 255)',
+            font: 'rgba(0, 0, 0, 255)',
+            background: 'rgba(0, 0, 0, 0)'
+        },
+        arrow: {
+            bottom: false,
+            top: true,
+            open: 3,
+            size: 10
+        },
+        font: '30px Impact',
+    });
+
+drawAsTree ([y, w]
+, (node) => node ['0'] || node [1] || []
+, () => 'a'
+, './media/test-no-arrow.png',
+{
+
+    block: {width: 140, height: 40},
+    delta: {width: 100, height: 80},
+    offset: {x: 20, y: 40},
+    displayType: 'text',
+    colors: {
+        block: 'rgba(0, 0, 0, 255)',
+        line: 'rgba(0, 0, 0, 255)',
+        font: 'rgba(0, 0, 0, 255)',
+        background: 'rgba(0, 0, 0, 0)'
+    },
+    font: '30px Impact',
+});
