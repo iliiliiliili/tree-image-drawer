@@ -1,6 +1,6 @@
 {
   "name": "tree-image-drawer",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Node.js tree to png drawer",
   "main": "index.js",
   "keywords": [
